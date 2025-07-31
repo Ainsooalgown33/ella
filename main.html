@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
   <title>I Love You</title>
   <style>
@@ -27,6 +28,13 @@
       animation: floatText 6s ease-in-out infinite;
       pointer-events: none;
     }
+    img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
 
     .image-container {
   position: absolute;
@@ -147,6 +155,17 @@
       z-index: 2;
       position: relative;
     }
+
+     @media (max-width: 600px) {
+    .answer-btn, #nextBtn {
+      font-size: 0.95rem;
+      padding: 0.9rem;
+    }
+
+    #question {
+      font-size: 1rem;
+    }
+  }
   </style>
 </head>
 <body>
@@ -266,7 +285,5 @@
     imageContainer.appendChild(img);
   });
 </script>
-
-
 </body>
 </html>
