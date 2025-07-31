@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Q&A for My Love</title>
+  <title>For My Love 💘</title>
   <link rel="stylesheet" href="css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: black;
+      overflow: hidden;
+      text-align: center;
+      color: white;
+    }
+    .cupid {
+      position: absolute;
+      top: 30%;
+      left: -200px;
+      width: 150px;
+      animation: fly 8s linear forwards;
+    }
+    @keyframes fly {
+      0% { left: -200px; top: 30%; }
+      50% { top: 20%; }
+      100% { left: 100%; top: 30%; }
+    }
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3rem;
+      color: #ff69b4;
+      margin-top: 60vh;
+      animation: fadeIn 2s ease-in-out;
+    }
+  </style>
 </head>
 <body>
-  <div class="qa-container">
-    <div class="question" id="question"></div>
-    <div class="answers" id="answers"></div>
-    <div id="nextBtn" onclick="nextQuestion()">Next</div>
-  </div>
+  <img src="assets/ChatGPT Image Jul 31, 2025, 08_14_33 PM.png" class="cupid" alt="Cupid" />
+  <h1>Happy Girlfriend’s Day, My Love! 💖</h1>
+  <audio autoplay>
+    <source src="assets/hearts.mp3" type="audio/mpeg">
+  </audio>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyA5aaauuUS6bdNNFBFr8681ewtIvkWgRcU",
-      authDomain: "ella-2d3df.firebaseapp.com",
-      projectId: "ella-2d3df",
-      storageBucket: "ella-2d3df.firebasestorage.app",
-      messagingSenderId: "391667725375",
-      appId: "1:391667725375:web:f73344524a0809e42ef48a"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    window.db = db;
-
-    // ✅ Correct relative path
-    import("./js/questions.js").catch(console.error);
+  <script>
+    setTimeout(() => {
+      window.location.href = "intro.html";
+    }, 7000);
   </script>
 </body>
 </html>
