@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>I Love You</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+      font-family: 'Arial', sans-serif;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+
+    .text {
+      position: absolute;
+      font-size: 1.2rem;
+      color: pink;
+      font-weight: bold;
+      text-shadow: 0 0 5px red, 0 0 10px magenta, 0 0 15px hotpink;
+      animation: floatText 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .image-container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.floating-image {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 15px;
+  animation: floatImage 12s infinite ease-in-out;
+  filter: drop-shadow(0 0 8px hotpink);
+}
+.scroll-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.scroll-track {
+  display: flex;
+  flex-wrap: nowrap;
+  animation: scrollLeft 60s linear infinite;
+}
+
+.scroll-track img {
+  height: 60px;
+  width: auto;
+  margin: 10px;
+  border-radius: 10px;
+  filter: drop-shadow(0 0 8px pink);
+  opacity: 0.8;
+  transition: transform 0.5s ease;
+}
+
+.scroll-track img:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+@keyframes scrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes floatImage {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-100px) rotate(10deg) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) rotate(-10deg) scale(1);
+    opacity: 0.8;
+  }
+}
+
+
+    @keyframes floatText {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+
+    audio {
+      display: none;
+    }
+
+    .gallery {
+      position: absolute;
+      top: 100px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow-y: scroll;
+      padding: 30px;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .gallery img {
+      max-width: 80%;
+      border-radius: 15px;
+      box-shadow: 0 0 30px hotpink;
+      transition: transform 0.4s ease-in-out;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+
+    h1 {
+      text-align: center;
+      color: hotpink;
+      margin-top: 40px;
+      font-size: 2rem;
+      text-shadow: 0 0 10px magenta;
+      z-index: 2;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="hearts"></canvas>
+  <div class="scroll-container">
+  <div class="scroll-track" id="scrollTrack"></div>
+</div>
+  <div class="image-container" id="imageContainer"></div>
+
+
+  <!-- <h1>Our Beautiful Memories</h1> -->
+
+  <!-- <div class="gallery">
+    <img src="/ella/assets/00.jpg" alt="Memory 1">
+    <img src="/ella/assets/00.jpg" alt="Memory 2">
+    <img src="/ella/assets/00.jpg" alt="Memory 3">
+    <!-- Add more <img> as needed -->
+  </div> -->
+
+  <script>
+    for (let i = 0; i < 50; i++) {
+      const el = document.createElement('div');
+      el.className = 'text';
+      el.textContent = 'I Love You';
+      el.style.top = Math.random() * 100 + 'vh';
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.opacity = (Math.random() * 0.7 + 0.3).toFixed(2);
+      el.style.animationDuration = (Math.random() * 4 + 3) + 's';
+      el.style.fontSize = (Math.random() * 1.5 + 0.8) + 'rem';
+      document.body.appendChild(el);
+    }
+  </script>
+
+  <audio autoplay loop>
+    <source src="music/love-song.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    const canvas = document.getElementById('hearts');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    window.onresize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+
+    const hearts = [];
+    for (let i = 0; i < 100; i++) {
+      hearts.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 5 + 2,
+        speed: Math.random() * 1 + 0.5,
+        alpha: Math.random() * 0.5 + 0.3
+      });
+    }
+
+    function drawHeart(x, y, size, alpha) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(size, size);
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(0, -3, -5, -5, -5, -10);
+      ctx.bezierCurveTo(-5, -15, 0, -18, 0, -22);
+      ctx.bezierCurveTo(0, -18, 5, -15, 5, -10);
+      ctx.bezierCurveTo(5, -5, 0, -3, 0, 0);
+      ctx.closePath();
+      ctx.fillStyle = "rgba(255,0,100," + alpha + ")";
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      for (let heart of hearts) {
+        heart.y -= heart.speed;
+        if (heart.y < -10) {
+          heart.y = height + 10;
+          heart.x = Math.random() * width;
+        }
+        drawHeart(heart.x, heart.y, heart.size, heart.alpha);
+      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+  
+  <script>
+  const imagePaths = [
+    'assets/00.jpg',
+    'assets/01.jpg',
+    'assets/02.jpg',
+    'assets/03.jpg',
+    'assets/1.jpg',
+    'assets/2.jpg',
+    'assets/3.jpg',
+    'assets/4.jpg',
+    'assets/5.jpg',
+    'assets/6.jpg',
+    'assets/7.jpg',
+    'assets/8.jpg',
+    // Add more if needed
+  ];
+
+  const imageContainer = document.getElementById('imageContainer');
+
+  imagePaths.forEach((path, i) => {
+    const img = document.createElement('img');
+    img.src = path;
+    img.className = 'floating-image';
+    img.style.top = Math.random() * 90 + 'vh';
+    img.style.left = Math.random() * 90 + 'vw';
+    img.style.animationDelay = (Math.random() * 5) + 's';
+    imageContainer.appendChild(img);
+  });
+</script>
+
+
+</body>
+</html>

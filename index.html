@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Q&A for My Love</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="qa-container">
+    <div class="question" id="question"></div>
+    <div class="answers" id="answers"></div>
+    <div id="nextBtn" onclick="nextQuestion()">Next</div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA5aaauuUS6bdNNFBFr8681ewtIvkWgRcU",
+      authDomain: "ella-2d3df.firebaseapp.com",
+      projectId: "ella-2d3df",
+      storageBucket: "ella-2d3df.firebasestorage.app",
+      messagingSenderId: "391667725375",
+      appId: "1:391667725375:web:f73344524a0809e42ef48a"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    window.db = db;
+
+    // ✅ Correct relative path
+    import("./js/questions.js").catch(console.error);
+  </script>
+</body>
+</html>

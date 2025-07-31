@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Questions 💬</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fff0f5;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .question {
+      font-size: 1.5rem;
+      color: #c2185b;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .answers {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .answers button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: #f06292;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .answers button:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div id="qa"></div>
+
+  <script>
+    const qas = [
+      {
+        question: "Do you remember what happened on November 27th? 😏",
+        answers: ["Yes!", "No but I know it was special 💖"]
+      },
+      {
+        question: "Have I told you lately how much I love your face? 🥰",
+        answers: ["Every day", "Not enough", "Say it again 😘"]
+      },
+      {
+        question: "If I asked you to always be mine, what would you say?",
+        answers: ["Forever yours 💍", "Only if you mean it 😉", "YES!"]
+      }
+    ];
+
+    let current = 0;
+    const container = document.getElementById("qa");
+
+    function renderQA() {
+      const qa = qas[current];
+      container.innerHTML = `
+        <div class="question">${qa.question}</div>
+        <div class="answers">
+          ${qa.answers.map(a => `<button onclick="nextQA()">${a}</button>`).join("")}
+        </div>
+      `;
+    }
+
+    function nextQA() {
+      current++;
+      if (current < qas.length) {
+        renderQA();
+      } else {
+        window.location.href = "main.html";
+      }
+    }
+
+    renderQA();
+  </script>
+</body>
+</html>
